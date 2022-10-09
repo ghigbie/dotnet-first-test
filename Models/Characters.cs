@@ -19,5 +19,7 @@ namespace first_project.Models
 
         public int Intelligence {get; set; } = 10;
 
+        public RpgClass Class { get; set; } = RpgClass.Knight;
+
     }
 }
