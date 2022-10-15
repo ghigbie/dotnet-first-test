@@ -18,21 +18,21 @@ namespace first_project.Services.CharacterService
             new Character { Id = 5, Name = "Gemli", Class = RpgClass.Knight },
         };
 
-        public List<Character> AddCharacter(Character newCharacter)
+        public async Task<List<Character>> AddCharacter(Character newCharacter)
         {
             characters.Add(newCharacter);
             return characters;
         }
 
-        public List<Character> GetAllCharacters()
+        public async Task<List<Character>> GetAllCharacters()
         {
             return characters;
         }
 
-        public Character GetCharacterById(int id) => characters.FirstOrDefault(character => character.Id == id);
+        public async Task<Character> GetCharacterById(int id) => characters.FirstOrDefault(character => character.Id == id);
 
 
-        public Character GetDefaultCharacter()
+        public async Task<Character> GetDefaultCharacter()
         {
             return defaultCharacter;
         }

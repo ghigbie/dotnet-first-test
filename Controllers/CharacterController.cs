@@ -31,18 +31,18 @@ namespace first_project.Controllers
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<List<Character>> GetAll()
+        public async Task <ActionResult<List<Character>>> GetAll()
         {
-            return Ok(_characterService.GetAllCharacters());
+            return Ok( await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
 
-        public ActionResult<Character> Get(int id)
+        public async Task <ActionResult<Character>> Get(int id)
         {
             if(id < characters.Count)
             {
-                return Ok(_characterService.GetCharacterById(id));
+                return Ok(await _characterService.GetCharacterById(id));
             }
             else
             {
@@ -51,13 +51,13 @@ namespace first_project.Controllers
         }
 
         [HttpGet("GetDefault")]
-        public ActionResult<Character> GetDefault()
+        public async Task<ActionResult<Character>> GetDefault()
         {
             return Ok(_characterService.GetDefaultCharacter());
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
         {
 
             return Ok(_characterService.AddCharacter(newCharacter));
