@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using first_project.Services.CharacterService;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -18,14 +19,21 @@ namespace first_project.Controllers
             new Character { Id = 1, Name = "Sam"},
             new Character { Id = 2, Name = "Strider" },
             new Character { Id = 3, Name = "Gandolf", Class = RpgClass.Wizzard },
-            new Character { Id = 4, Name =  "Healer", Class = RpgClass.Cleric },
+            new Character { Id = 4, Name = "Healer", Class = RpgClass.Cleric },
             new Character { Id = 5, Name = "Gemli", Class = RpgClass.Knight },
         };
+
+        private readonly ICharacterService _characterService;
+
+        public CharacterController(ICharacterService characterService)
+        {
+            _characterService = characterService;
+        }
 
         [HttpGet("GetAll")]
         public ActionResult<List<Character>> GetAll()
         {
-            return Ok(characters);
+            return Ok(_characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
@@ -34,7 +42,7 @@ namespace first_project.Controllers
         {
             if(id < characters.Count)
             {
-                return Ok(characters.FirstOrDefault(character => character.Id == id));
+                return Ok(_characterService.GetCharacterById(id));
             }
             else
             {
@@ -45,14 +53,14 @@ namespace first_project.Controllers
         [HttpGet("GetDefault")]
         public ActionResult<Character> GetDefault()
         {
-            return Ok(defaultCharacter);
+            return Ok(_characterService.GetDefaultCharacter());
         }
 
         [HttpPost]
         public ActionResult<List<Character>> AddCharacter(Character newCharacter)
         {
-            characters.Add(newCharacter);
-            return Ok(characters);
+
+            return Ok(_characterService.AddCharacter(newCharacter));
         }
     }
 }
